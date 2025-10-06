@@ -1,34 +1,130 @@
-/* 计算器整体样式 */
+/* ------------------------------------- */
+/* 计算器整体样式改进 */
+/* ------------------------------------- */
+
 #calculator {
-    width: 200px;
+    width: 300px; /* 增加宽度，适应四列布局，更宽敞 */
     margin: 100px auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px #aaa;
+    padding: 20px; /* 增加内边距，减少拥挤感 */
+    border: none; /* 移除传统边框 */
+    border-radius: 15px; /* 更圆润的边角 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* 更深邃柔和的阴影 */
+    background-color: #f0f0f0; /* 整体背景色，浅灰色，提升质感 */
 }
 
-/* 计算器显示区域样式 */
+/* ------------------------------------- */
+/* 显示区域样式改进 */
+/* ------------------------------------- */
+
 #display {
-    font-size: 2em;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 使用现代字体 */
+    font-size: 3em; /* 增大字体，提高可读性 */
     text-align: right;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    padding: 15px 10px;
+    height: 40px; /* 固定高度，保持稳定 */
+    line-height: 40px;
+    border-radius: 10px;
+    background-color: #ffffff; /* 纯白色背景 */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* 内部阴影，模拟屏幕内陷效果 */
+    overflow: hidden; /* 防止数字溢出 */
 }
 
-/* 计算器按钮样式 */
+/* ------------------------------------- */
+/* 按钮布局与样式改进 - 使用 CSS Grid */
+/* ------------------------------------- */
+
+#buttons {
+    display: grid;
+    /* 创建4个等宽的列，实现完美的四列对齐 */
+    grid-template-columns: repeat(4, 1fr);
+    /* 按钮之间的间距，替代原有的按钮外边距 */
+    gap: 12px;
+}
+
+/* 默认按钮样式 */
 #buttons button {
-    width: 45px;
-    height: 45px;
-    margin: 5px;
+    width: 100%; /* 填满 Grid 单元格 */
+    height: 55px; /* 统一按钮高度 */
+    margin: 0; /* 移除旧的 margin 属性 */
     font-size: 1.5em;
     cursor: pointer;
+    border: none;
+    border-radius: 8px; /* 按钮圆角 */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* 按钮阴影，增强立体感 */
+    background-color: #ffffff; /* 数字键的默认背景为白色 */
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+    font-weight: 500;
 }
 
-/* 计算器按钮悬停效果 */
+/* 鼠标悬停和点击效果 */
 #buttons button:hover {
-    background-color: #eee;
+    background-color: #e6e6e6; /* 悬停颜色变浅灰 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+#buttons button:active {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px); /* 轻微下沉效果 */
+}
+
+/* ------------------------------------- */
+/* 特殊按钮着色，提升视觉层次和操作识别 */
+/* ------------------------------------- */
+
+/* 功能键（清除 C, 退格 B）*/
+#buttons button:nth-child(1), /* 清除 */
+#buttons button:nth-child(2)  /* 退格 */
+{
+    background-color: #ff6347; /* 橙红色，表示清除/删除操作 */
+    color: white;
+    font-weight: bold;
+}
+/* 功能键悬停效果 */
+#buttons button:nth-child(1):hover,
+#buttons button:nth-child(2):hover
+{
+    background-color: #e8553e;
+}
+
+/* 运算符键（/，*，-，+）*/
+/* (3, 7, 11, 15, 18 都是运算符和点号, HTML 按钮顺序: ., /, *, -, +) */
+#buttons button:nth-child(7), /* 除法 / */
+#buttons button:nth-child(11), /* 乘法 * */
+#buttons button:nth-child(15), /* 减法 - */
+#buttons button:nth-child(18) /* 加法 + */
+{
+    background-color: #5cb85c; /* 清新绿色，表示运算 */
+    color: white;
+    font-size: 1.8em;
+}
+/* 运算符悬停效果 */
+#buttons button:nth-child(7):hover,
+#buttons button:nth-child(11):hover,
+#buttons button:nth-child(15):hover,
+#buttons button:nth-child(18):hover
+{
+    background-color: #4cae4c;
+}
+
+/* 等于号（=）*/
+#buttons button:nth-child(17) {
+    background-color: #337ab7; /* 醒目蓝色，表示结果 */
+    color: white;
+    font-weight: bold;
+    font-size: 1.8em;
+}
+/* 等于号悬停效果 */
+#buttons button:nth-child(17):hover {
+    background-color: #2e6da4;
+}
+
+/* 小数点键（.）*/
+#buttons button:nth-child(3) {
+    background-color: #e0e0e0;
+}
+
+/* 让数字键有略微不同的悬停颜色 */
+#buttons button:not([style*="background-color"]):hover {
+    background-color: #f0f0f0;
 }
