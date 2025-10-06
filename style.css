@@ -1,130 +1,174 @@
 /* ------------------------------------- */
-/* 计算器整体样式改进 */
+/* 计算器整体样式 */
 /* ------------------------------------- */
 
 #calculator {
-    width: 300px; /* 增加宽度，适应四列布局，更宽敞 */
+    width: 300px; /* 维持宽度，但增加内边距使其更宽敞 */
     margin: 100px auto;
-    padding: 20px; /* 增加内边距，减少拥挤感 */
-    border: none; /* 移除传统边框 */
-    border-radius: 15px; /* 更圆润的边角 */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* 更深邃柔和的阴影 */
-    background-color: #f0f0f0; /* 整体背景色，浅灰色，提升质感 */
+    padding: 25px; /* 增加内边距，减少拥挤感 */
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); /* 更深邃的阴影 */
+    background-color: #f0f0f0; /* 整体背景色，浅灰色 */
 }
 
 /* ------------------------------------- */
-/* 显示区域样式改进 */
+/* 显示区域样式 */
 /* ------------------------------------- */
 
 #display {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 使用现代字体 */
-    font-size: 3em; /* 增大字体，提高可读性 */
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 3em;
     text-align: right;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     padding: 15px 10px;
-    height: 40px; /* 固定高度，保持稳定 */
-    line-height: 40px;
+    height: 45px;
+    line-height: 45px;
     border-radius: 10px;
     background-color: #ffffff; /* 纯白色背景 */
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* 内部阴影，模拟屏幕内陷效果 */
-    overflow: hidden; /* 防止数字溢出 */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* 屏幕内陷效果 */
+    overflow: hidden;
+    color: #333; /* 字体颜色 */
 }
 
 /* ------------------------------------- */
-/* 按钮布局与样式改进 - 使用 CSS Grid */
+/* 按钮布局与样式 - 核心Grid修改 */
 /* ------------------------------------- */
 
 #buttons {
     display: grid;
-    /* 创建4个等宽的列，实现完美的四列对齐 */
+    /* 定义标准的四列等宽布局 */
     grid-template-columns: repeat(4, 1fr);
-    /* 按钮之间的间距，替代原有的按钮外边距 */
+    /* 按钮之间的间距，创造空间感 */
     gap: 12px;
 }
 
 /* 默认按钮样式 */
 #buttons button {
-    width: 100%; /* 填满 Grid 单元格 */
-    height: 55px; /* 统一按钮高度 */
-    margin: 0; /* 移除旧的 margin 属性 */
-    font-size: 1.5em;
+    width: 100%;
+    height: 60px; /* 统一按钮高度，增大按键面积 */
+    margin: 0;
+    font-size: 1.4em;
     cursor: pointer;
     border: none;
-    border-radius: 8px; /* 按钮圆角 */
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* 按钮阴影，增强立体感 */
-    background-color: #ffffff; /* 数字键的默认背景为白色 */
+    border-radius: 10px; /* 按钮圆角 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* 数字键默认白色 */
     transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* 鼠标悬停和点击效果 */
 #buttons button:hover {
-    background-color: #e6e6e6; /* 悬停颜色变浅灰 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    background-color: #e9e9e9;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
 }
 
 #buttons button:active {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    transform: translateY(1px); /* 轻微下沉效果 */
+    transform: translateY(1px);
 }
 
 /* ------------------------------------- */
-/* 特殊按钮着色，提升视觉层次和操作识别 */
+/* 强制按钮定位和对齐 - 对应HTML中的按钮顺序 */
 /* ------------------------------------- */
 
-/* 功能键（清除 C, 退格 B）*/
-#buttons button:nth-child(1), /* 清除 */
-#buttons button:nth-child(2)  /* 退格 */
-{
-    background-color: #ff6347; /* 橙红色，表示清除/删除操作 */
+/* === R1: 清除 (1) | 退格 (2) | / (7) | * (11) === */
+
+/* 清除 (1) 和 退格 (2) 占满第一行并对齐，但根据标准布局，它们通常放在第一排左侧，运算符在右侧 */
+/* 这里我们将 清除/退格 放在第一行，并各自跨越两列，实现各自对齐的要求 */
+#buttons button:nth-child(1) {
+    grid-column: 1 / 3;
+    grid-row: 1;
+} /* 清除 C ( span 2) */
+
+#buttons button:nth-child(2) {
+    grid-column: 3 / 5;
+    grid-row: 1;
+} /* 退格 B ( span 2) */
+
+/* === R2: 7 (4) | 8 (5) | 9 (6) | / (7) === */
+#buttons button:nth-child(4) { grid-row: 2; grid-column: 1; } /* 7 */
+#buttons button:nth-child(5) { grid-row: 2; grid-column: 2; } /* 8 */
+#buttons button:nth-child(6) { grid-row: 2; grid-column: 3; } /* 9 */
+#buttons button:nth-child(7) { grid-row: 2; grid-column: 4; } /* / */
+
+/* === R3: 4 (8) | 5 (9) | 6 (10) | * (11) === */
+#buttons button:nth-child(8) { grid-row: 3; grid-column: 1; } /* 4 */
+#buttons button:nth-child(9) { grid-row: 3; grid-column: 2; } /* 5 */
+#buttons button:nth-child(10) { grid-row: 3; grid-column: 3; } /* 6 */
+#buttons button:nth-child(11) { grid-row: 3; grid-column: 4; } /* * */
+
+/* === R4: 1 (12) | 2 (13) | 3 (14) | - (15) === */
+#buttons button:nth-child(12) { grid-row: 4; grid-column: 1; } /* 1 */
+#buttons button:nth-child(13) { grid-row: 4; grid-column: 2; } /* 2 */
+#buttons button:nth-child(14) { grid-row: 4; grid-column: 3; } /* 3 */
+#buttons button:nth-child(15) { grid-row: 4; grid-column: 4; } /* - */
+
+/* === R5: 0 (16) (span 2) | . (3) | + (18) === */
+/* 0 键横跨两列 */
+#buttons button:nth-child(16) {
+    grid-column: 1 / 3;
+    grid-row: 5;
+} /* 0 (span 2) */
+
+/* 将点号 . (3) 放到 R5 的第三列 */
+#buttons button:nth-child(3) {
+    grid-column: 3;
+    grid-row: 5;
+} /* . */
+
+/* 将加号 + (18) 放到 R5 的第四列 */
+#buttons button:nth-child(18) {
+    grid-column: 4;
+    grid-row: 5;
+} /* + */
+
+/* === R6: = (17) (span 4) === */
+/* 等号独占最下面一行，横跨四列 */
+#buttons button:nth-child(17) {
+    grid-column: 1 / 5;
+    grid-row: 6;
+} /* = (span 4) */
+
+/* ------------------------------------- */
+/* 特殊按钮着色，提升美观度和识别度 */
+/* ------------------------------------- */
+
+/* 功能键 (清除 C, 退格 B) */
+#buttons button:nth-child(1),
+#buttons button:nth-child(2) {
+    background-color: #ff6347; /* 橙红色 */
     color: white;
     font-weight: bold;
 }
-/* 功能键悬停效果 */
 #buttons button:nth-child(1):hover,
-#buttons button:nth-child(2):hover
-{
+#buttons button:nth-child(2):hover {
     background-color: #e8553e;
 }
 
-/* 运算符键（/，*，-，+）*/
-/* (3, 7, 11, 15, 18 都是运算符和点号, HTML 按钮顺序: ., /, *, -, +) */
-#buttons button:nth-child(7), /* 除法 / */
-#buttons button:nth-child(11), /* 乘法 * */
-#buttons button:nth-child(15), /* 减法 - */
-#buttons button:nth-child(18) /* 加法 + */
-{
-    background-color: #5cb85c; /* 清新绿色，表示运算 */
+/* 运算符键 (/, *, -, +) - 垂直对齐在第四列 */
+#buttons button:nth-child(7),
+#buttons button:nth-child(11),
+#buttons button:nth-child(15),
+#buttons button:nth-child(18) {
+    background-color: #33a7e0; /* 蓝色系 */
     color: white;
     font-size: 1.8em;
 }
-/* 运算符悬停效果 */
 #buttons button:nth-child(7):hover,
 #buttons button:nth-child(11):hover,
 #buttons button:nth-child(15):hover,
-#buttons button:nth-child(18):hover
-{
-    background-color: #4cae4c;
+#buttons button:nth-child(18):hover {
+    background-color: #298cd9;
 }
 
-/* 等于号（=）*/
+/* 等于号 (=) - 独立一行，颜色醒目 */
 #buttons button:nth-child(17) {
-    background-color: #337ab7; /* 醒目蓝色，表示结果 */
+    background-color: #5cb85c; /* 绿色系 */
     color: white;
     font-weight: bold;
     font-size: 1.8em;
 }
-/* 等于号悬停效果 */
 #buttons button:nth-child(17):hover {
-    background-color: #2e6da4;
-}
-
-/* 小数点键（.）*/
-#buttons button:nth-child(3) {
-    background-color: #e0e0e0;
-}
-
-/* 让数字键有略微不同的悬停颜色 */
-#buttons button:not([style*="background-color"]):hover {
-    background-color: #f0f0f0;
+    background-color: #4cae4c;
 }
