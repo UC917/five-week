@@ -8,29 +8,29 @@
 
 </head>
 <body>
-    <div class="calculator">
-        <div id="display" class="display">0</div>
-        <div class="buttons">
-            <button id="clear">C</button>
-            <button id="backspace">←</button>
-            <button id="decimal">.</button>
-            <button id="divide">/</button>
-            <button id="one">1</button>
-            <button id="two">2</button>
-            <button id="three">3</button>
-            <button id="multiply">*</button>
-            <button id="four">4</button>
-            <button id="five">5</button>
-            <button id="six">6</button>
-            <button id="subtract">-</button>
-            <button id="seven">7</button>
-            <button id="eight">8</button>
-            <button id="nine">9</button>
-            <button id="add">+</button>
-            <button id="zero">0</button>
-            <button id="equals">=</button>
-        </div>
+<div id="calculator">
+    <div id="display">0</div>
+    <div id="buttons">
+        <button onclick="clearDisplay()">清除</button>
+        <button onclick="deleteLast()">退格</button>
+        <button onclick="appendDigit('.')">.</button>
+        <button onclick="appendDigit('7')">7</button>
+        <button onclick="appendDigit('8')">8</button>
+        <button onclick="appendDigit('9')">9</button>
+        <button onclick="setOperator('/')">/</button>
+        <button onclick="appendDigit('4')">4</button>
+        <button onclick="appendDigit('5')">5</button>
+        <button onclick="appendDigit('6')">6</button>
+        <button onclick="setOperator('*')">*</button>
+        <button onclick="appendDigit('1')">1</button>
+        <button onclick="appendDigit('2')">2</button>
+        <button onclick="appendDigit('3')">3</button>
+        <button onclick="setOperator('-')">-</button>
+        <button onclick="appendDigit('0')">0</button>
+        <button onclick="calculateResult()">=</button>
+        <button onclick="setOperator('+')">+</button>
     </div>
+</div>
 
     <script src="script.js"> </script>
 </body>
